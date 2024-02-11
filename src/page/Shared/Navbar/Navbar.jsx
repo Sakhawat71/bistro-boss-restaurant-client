@@ -21,8 +21,7 @@ const Navbar = () => {
 
 
     return (
-        // <div className="mx-auto">
-            <div className="navbar max-w-7xl fixed z-10 bg-opacity-25 bg-black text-white">
+        <div className="navbar max-w-full fixed z-10 bg-opacity-25 bg-black text-white">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -47,7 +46,6 @@ const Navbar = () => {
                 <a className="btn">Log In</a>
             </div>
         </div>
-        // </div>
     );
 };
 
