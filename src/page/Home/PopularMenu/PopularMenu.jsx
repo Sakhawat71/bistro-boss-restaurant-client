@@ -17,7 +17,6 @@ const PopularMenu = () => {
             })
     }, [])
 
-    console.log(menu)
     return (
         <section className="my-10 mx-5 md:mx-20 max-w-5xl lg:mx-auto">
             <SectionTitle
