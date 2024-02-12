@@ -6,10 +6,10 @@ const SectionTitle = ({ subtitle, mainTitle }) => {
 
             <h2
                 className="text-[#D99904] border-b-4 pb-3 italic md:text-xl lg:text-2xl mb-4"
-            >---{subtitle}---</h2>
+            >--- {subtitle} ---</h2>
 
             <h1
-                className="text-2xl md:text-3xl lg:text-5xl font-medium border-b-4 pb-5"
+                className="text-2xl md:text-3xl lg:text-4xl font-medium border-b-4 pb-5"
             >{mainTitle}</h1>
 
         </div>
