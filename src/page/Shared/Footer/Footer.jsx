@@ -16,7 +16,7 @@ const Footer = () => {
 
                 <nav className="mx-auto w-full py-10 justify-center flex items-center flex-col">
                     <h6 className="footer-title ">Follow US</h6>
-                    <p className="link-hover">Join us on social media</p>
+                    <p className="">Join us on social media</p>
                     <div className="flex space-x-4 text-xl">
                         <a className="link link-hover">
                             <FaFacebookF></FaFacebookF>
@@ -31,9 +31,9 @@ const Footer = () => {
                 </nav>
 
             </footer>
-            <footer className="footer footer-center p-4 bg-base-300 text-base-content">
+            <footer className="footer footer-center p-4 bg-[#151515] text-white">
                 <aside>
-                    <p>Copyright © 2024 - All right reserved by Bistro Boss Restaurant.</p>
+                    <p>Copyright © CulinaryCloud. All rights reserved.</p>
                 </aside>
             </footer>
         </div>
