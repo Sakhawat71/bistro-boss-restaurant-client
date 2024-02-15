@@ -16,7 +16,7 @@ const MenuCategory = ({ category }) => {
                 }
             </div>
             <div className='mx-auto mt-10 w-1/4'>
-                <ButtonMenu link={"/order"}></ButtonMenu>
+                <ButtonMenu link={"/shop"}></ButtonMenu>
             </div>
         </div>
     );
