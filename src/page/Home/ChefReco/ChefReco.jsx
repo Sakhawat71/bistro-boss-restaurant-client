@@ -1,7 +1,12 @@
 import SectionTitle from "../../../components/sectionTitle/SectionTitle";
-import img from "../../../assets/chef/banner2.jpg"
+import useMenu from "../../../hooks/useMenu";
+import ShopItems from "../../Shop/ShopItems/ShopItems";
 
 const ChefReco = () => {
+
+    const [menu] = useMenu();
+    const popular = menu.filter(item => item.category === "popular")
+
     return (
         <div className="max-w-5xl my-20 mx-5 md:mx-10 lg:mx-auto ">
             <div className="mb-10">
@@ -11,7 +16,7 @@ const ChefReco = () => {
                 ></SectionTitle>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 
                 
                 <div className="card bg-base-100 shadow-xl">
@@ -47,7 +52,8 @@ const ChefReco = () => {
                 </div>
 
 
-            </div>
+            </div> */}
+            <ShopItems items={popular}></ShopItems>
         </div>
     );
 };

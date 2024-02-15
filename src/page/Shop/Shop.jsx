@@ -5,6 +5,7 @@ import 'react-tabs/style/react-tabs.css';
 import { useState } from "react";
 import useMenu from "../../hooks/useMenu";
 import ShopItems from "./ShopItems/ShopItems";
+import { Helmet } from "react-helmet";
 
 const Shop = () => {
 
@@ -19,6 +20,9 @@ const Shop = () => {
 
     return (
         <div className="mb-10 bg-white">
+
+            <Helmet title="Bistro | Shop"></Helmet>
+
             <Cover
                 bgImage={coverBg}
                 titel={"OUR SHOP"}
