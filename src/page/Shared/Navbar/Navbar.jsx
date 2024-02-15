@@ -9,7 +9,7 @@ const Navbar = () => {
             <NavLink
                 to={"/"}
                 className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active text-blue-700 font-bold" : ""
+                    isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
                 }
             >Home</NavLink>
         </li>
@@ -18,9 +18,18 @@ const Navbar = () => {
             <NavLink
                 to={"/menu"}
                 className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active text-blue-700 font-bold" : ""
+                    isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
                 }
             >Our Menu</NavLink>
+        </li>
+        
+        <li>
+            <NavLink
+                to={"/shop"}
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
+                }
+            >Our Shop</NavLink>
         </li>
 
 
@@ -50,7 +59,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn btn-outline">Log In</a>
+                <a className="btn btn-outline text-white">Log In</a>
             </div>
         </div>
     );

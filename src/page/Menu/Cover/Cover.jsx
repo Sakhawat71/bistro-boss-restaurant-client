@@ -1,20 +1,27 @@
-import bannerImg from "../../../assets/menu/banner3.jpg"
+import PropTypes from 'prop-types';
 
-const Cover = () => {
+const Cover = ({bgImage,titel,text}) => {
     return (
         <div
-            style={{backgroundImage: `url(${bannerImg})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: 'rgba(0, 0, 0, 0.2)', backgroundBlendMode: 'multiply'}}
+            style={{backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundColor: 'rgba(0, 0, 0, 0.2)', backgroundBlendMode: 'multiply'}}
 
-            className="py-40 flex items-center justify-center bg-opacity-65"
+            className="py-40 bg-fixed flex items-center justify-center bg-opacity-65"
         >
             <div className="text-white text-center bg-black bg-opacity-65 space-y-3 py-20 w-4/6 ">
                 
-                <h1 className="text-4xl font-semibold">OUR MENU</h1>
-                <h4 className="uppercase">Would you like to try a dish?</h4>
+                <h1 className="text-4xl font-semibold">{titel}</h1>
+                <h4 className="uppercase">{text}</h4>
             
             </div>
         </div>
     );
+};
+
+
+Cover.propTypes = {
+    bgImage : PropTypes.string,
+    titel : PropTypes.string,
+    text : PropTypes.string,
 };
 
 export default Cover;

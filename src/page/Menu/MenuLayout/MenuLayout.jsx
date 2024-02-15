@@ -8,7 +8,7 @@ import useMenu from "../../../hooks/useMenu";
 import MenuCategory from "../MenuCategory/MenuCategory";
 import saladBg from "../../../assets/menu/salad-bg.jpg";
 import supeBg from "../../../assets/menu//soup-bg.jpg";
-
+import bannerImg from "../../../assets/menu/banner3.jpg";
 
 const MenuLayout = () => {
 
@@ -26,7 +26,11 @@ const MenuLayout = () => {
                 <title>Bistro | Menu</title>
             </Helmet>
 
-            <Cover></Cover>
+            <Cover
+                bgImage={bannerImg}
+                titel={'OUR MENU'}
+                text={'Would you like to try a dish?'}
+            ></Cover>
 
             <SectionTitle
                 subtitle={"Don't miss"}
@@ -66,9 +70,9 @@ const MenuLayout = () => {
 
             {/* ------------ soup ------------ */}
             <MenuCover
-            bgImg={supeBg}
-            title={"SOUPS"}
-            text={"Savor our soul-warming soups, crafted with care and bursting with flavor. From hearty stews to creamy bisques, our soup selection offers comfort and nourishment in every spoonful, perfect for any occasion."}
+                bgImg={supeBg}
+                title={"SOUPS"}
+                text={"Savor our soul-warming soups, crafted with care and bursting with flavor. From hearty stews to creamy bisques, our soup selection offers comfort and nourishment in every spoonful, perfect for any occasion."}
             ></MenuCover>
             <MenuCategory category={soup}></MenuCategory>
 
