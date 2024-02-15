@@ -7,9 +7,9 @@ const MenuItem = ({ item }) => {
     return (
         <div className='flex grid-cols-7 justify-center space-x-2'>
 
-            <figure className='flex items-center justify-center mr-2'>
+            <figure className=' flex items-center justify-center mr-2 w-36'>
                 <img
-                    className='rounded-e-full rounded-b-full md:h-full w-36'
+                    className='rounded-e-full rounded-b-full h-full w-full'
                     src={image}
                     alt="image" />
             </figure>

@@ -20,7 +20,6 @@ const Testimonials = () => {
             })
     }, [])
 
-    console.log(reviews)
 
     return (
         <section className="max-w-5xl mx-auto my-20">
