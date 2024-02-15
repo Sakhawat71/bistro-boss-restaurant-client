@@ -9,9 +9,10 @@ const MenuItem = ({ item }) => {
 
             <figure className=' flex items-center justify-center mr-2 w-36'>
                 <img
-                    className='rounded-e-full rounded-b-full h-full w-full'
+                    className='rounded-e-full rounded-b-full h-full w-fit'
                     src={image}
-                    alt="image" />
+                    alt="image"
+                />
             </figure>
 
             <div className=' '>

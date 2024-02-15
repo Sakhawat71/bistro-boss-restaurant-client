@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import MenuItem from '../../Home/PopularMenu/MenuItem';
+import ButtonMenu from '../../../components/Button/ButtonMenu';
 
 const MenuCategory = ({ category }) => {
 
@@ -13,6 +14,9 @@ const MenuCategory = ({ category }) => {
                         item={item}
                     ></MenuItem>)
                 }
+            </div>
+            <div className='mx-auto mt-10 w-1/4'>
+                <ButtonMenu link={"/order"}></ButtonMenu>
             </div>
         </div>
     );
