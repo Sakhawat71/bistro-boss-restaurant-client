@@ -4,7 +4,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import 'react-tabs/style/react-tabs.css';
 import { useState } from "react";
 import useMenu from "../../hooks/useMenu";
-import FoodCard from "../../components/FoodCard/FoodCard";
+import ShopItems from "./ShopItems/ShopItems";
 
 const Shop = () => {
 
@@ -38,65 +38,30 @@ const Shop = () => {
 
                 {/* --------- salad ------------ */}
                 <TabPanel>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 md:gap-5 mx-5 md:mx-10 lg:mx-auto">
-                        {
-                            salad.map(item => <FoodCard
-                                key={item._id}
-                                item={item}
-                            ></FoodCard>)
-                        }
-                    </div>
+                    <ShopItems items={salad}></ShopItems>
                 </TabPanel>
 
 
                 {/* ----------------- pizza ---------------- */}
                 <TabPanel>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 md:gap-5 mx-5 md:mx-10 lg:mx-auto">
-                        {
-                            pizza.map(item => <FoodCard
-                                key={item._id}
-                                item={item}
-                            ></FoodCard>)
-                        }
-                    </div>
+                    <ShopItems items={pizza}></ShopItems>
                 </TabPanel>
 
                 {/* ----------------- soup ---------------- */}
                 <TabPanel>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 md:gap-5 mx-5 md:mx-10 lg:mx-auto">
-                        {
-                            soup.map(item => <FoodCard
-                                key={item._id}
-                                item={item}
-                            ></FoodCard>)
-                        }
-                    </div>
+                    <ShopItems items={soup}></ShopItems>
                 </TabPanel>
 
 
                 {/* ----------------- dessert ---------------- */}
                 <TabPanel>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 md:gap-5 mx-5 md:mx-10 lg:mx-auto">
-                        {
-                            dessert.map(item => <FoodCard
-                                key={item._id}
-                                item={item}
-                            ></FoodCard>)
-                        }
-                    </div>
+                    <ShopItems items={dessert}></ShopItems>
                 </TabPanel>
 
 
                 {/* ----------------- drinks ---------------- */}
                 <TabPanel>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-10 md:gap-5 mx-5 md:mx-10 lg:mx-auto">
-                        {
-                            drinks.map(item => <FoodCard
-                                key={item._id}
-                                item={item}
-                            ></FoodCard>)
-                        }
-                    </div>
+                    <ShopItems items={drinks}></ShopItems>
                 </TabPanel>
             </Tabs>
 
