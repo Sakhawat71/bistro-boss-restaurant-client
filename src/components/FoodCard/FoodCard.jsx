@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ButtonMenu from '../Button/ButtonMenu';
 
 const FoodCard = ({ item }) => {
-    console.log(item)
+    // console.log(item)
     const { image, name, recipe, price } = item;
 
     return (

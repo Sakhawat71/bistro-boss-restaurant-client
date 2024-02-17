@@ -37,8 +37,7 @@ const MenuLayout = () => {
                 mainTitle={"TODAY'S OFFER"}
             ></SectionTitle>
 
-            <MenuCategory category={offered} ></MenuCategory>
-
+            <MenuCategory category={offered} linkRoute=''></MenuCategory>
 
             {/* ----------- Dessert ----------- */}
             <MenuCover
@@ -46,8 +45,7 @@ const MenuLayout = () => {
                 title="DESSERTS"
                 text="Explore our mouthwatering selection of desserts, ranging from rich chocolates to fluffy pastries. Indulge in sweet delights crafted with passion and precision, a heavenly experience awaits on our delightful website."
             ></MenuCover>
-
-            <MenuCategory category={dessert}></MenuCategory>
+            <MenuCategory category={dessert} linkRoute='dessert'></MenuCategory>
 
 
             {/* ------------ pizza ------------- */}
@@ -56,8 +54,7 @@ const MenuLayout = () => {
                 title="PIZZA"
                 text="Pizza, a beloved dish worldwide, boasts a delightful combination of savory toppings atop a crispy crust. Whether classic Margherita or loaded with toppings, it remains a universal comfort food favorite."
             ></MenuCover>
-            <MenuCategory category={pizza}></MenuCategory>
-
+            <MenuCategory category={pizza} linkRoute='pizza'></MenuCategory>
 
             {/* ------------ Salad----------- */}
             <MenuCover
@@ -65,8 +62,7 @@ const MenuLayout = () => {
                 title={"SALADS"}
                 text={"Discover our vibrant salads, bursting with freshness and flavor. From crisp greens to zesty dressings, our salads offer a delightful medley of textures and ingredients, perfect for health-conscious diners."}
             ></MenuCover>
-            <MenuCategory category={salad}></MenuCategory>
-
+            <MenuCategory category={salad} linkRoute='salad'></MenuCategory>
 
             {/* ------------ soup ------------ */}
             <MenuCover
@@ -74,7 +70,7 @@ const MenuLayout = () => {
                 title={"SOUPS"}
                 text={"Savor our soul-warming soups, crafted with care and bursting with flavor. From hearty stews to creamy bisques, our soup selection offers comfort and nourishment in every spoonful, perfect for any occasion."}
             ></MenuCover>
-            <MenuCategory category={soup}></MenuCategory>
+            <MenuCategory category={soup} linkRoute='soup'></MenuCategory>
 
         </div>
     );

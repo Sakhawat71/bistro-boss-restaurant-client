@@ -16,43 +16,6 @@ const ChefReco = () => {
                 ></SectionTitle>
             </div>
 
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                
-                
-                <div className="card bg-base-100 shadow-xl">
-                    <figure className="">
-                        <img src={img} alt="img" className="rounded-lg" />
-                    </figure>
-                    <div className="card-body items-center text-center">
-                        <h2 className="card-title">Caeser Salad</h2>
-                        <p>Lettuce, Eggs, Parmesan Cheese, Chicken Breast Fillets.</p>
-                    </div>
-                </div>
-
-                <div className="card bg-base-100 shadow-xl">
-                    <figure className="">
-                        <img src={img} alt="img" className="rounded-lg" />
-                    </figure>
-                    <div className="card-body items-center text-center">
-                        <h2 className="card-title">Caeser Salad</h2>
-                        <p>Lettuce, Eggs, Parmesan Cheese, Chicken Breast Fillets.</p>
-                        
-                    </div>
-                </div>
-
-                <div className="card bg-base-100 shadow-xl">
-                    <figure className="">
-                        <img src={img} alt="img" className="rounded-lg" />
-                    </figure>
-                    <div className="card-body items-center text-center">
-                        <h2 className="card-title">Caeser Salad</h2>
-                        <p>Lettuce, Eggs, Parmesan Cheese, Chicken Breast Fillets.</p>
-                        
-                    </div>
-                </div>
-
-
-            </div> */}
             <ShopItems items={popular}></ShopItems>
         </div>
     );

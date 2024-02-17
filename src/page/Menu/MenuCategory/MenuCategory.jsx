@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import MenuItem from '../../Home/PopularMenu/MenuItem';
-import ButtonMenu from '../../../components/Button/ButtonMenu';
+import { Link } from 'react-router-dom';
 
-const MenuCategory = ({ category }) => {
+const MenuCategory = ({ category, linkRoute }) => {
 
+    console.log(linkRoute,category)
 
     return (
         <div className='max-w-5xl mx-auto'>
@@ -15,15 +16,19 @@ const MenuCategory = ({ category }) => {
                     ></MenuItem>)
                 }
             </div>
-            <div className='mx-auto mt-10 w-1/4'>
-                <ButtonMenu link={"/shop"} text={"ORDER YOUR FAVOURITE FOOD"}></ButtonMenu>
+            <div className='mx-auto mt-10 w-full flex justify-center'>
+                <Link to={`/shop`}>
+                    <button className="btn btn-outline border-b-4 hover:bg-white hover:text-black">ORDER YOUR FAVOURITE FOOD</button>
+                </Link>
             </div>
+
         </div>
     );
 };
 
 MenuCategory.propTypes = {
     category: PropTypes.array,
+    linkRoute: PropTypes.string,
 };
 
 export default MenuCategory;

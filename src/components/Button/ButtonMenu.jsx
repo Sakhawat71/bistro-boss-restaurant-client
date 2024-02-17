@@ -2,18 +2,18 @@ import PropTypes from 'prop-types';
 
 import { Link } from "react-router-dom";
 
-const ButtonMenu = ({link,text}) => {
+const ButtonMenu = ({text}) => {
     return (
 
-        <Link to={link} className="btn btn-outline border-b-4 hover:bg-white hover:text-black">
-            {text}
+        <Link  className="btn btn-outline border-b-4 hover:bg-white hover:text-black">
+            <button>{text}</button>
         </Link>
 
     );
 };
 
 ButtonMenu.propTypes = {
-    link : PropTypes.string,
+    // category : PropTypes.string,
     text : PropTypes.string,
 };
 
