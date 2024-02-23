@@ -4,6 +4,8 @@ import Home from "../page/Home/Home/Home";
 import MenuLayout from "../page/Menu/MenuLayout/MenuLayout";
 import Shop from "../page/Shop/Shop";
 import Error from "../page/Error/Error";
+import Login from "../page/Login/Login";
+import Register from "../page/Register/Register";
 
 
 const router = createBrowserRouter([
@@ -24,6 +26,14 @@ const router = createBrowserRouter([
                 path: "/shop",
                 element: <Shop></Shop>
             },
+            {
+                path: "/login",
+                element: <Login></Login>
+            },
+            {
+                path: "/register",
+                element: <Register></Register>
+            }
         ]
     }
 ]);
