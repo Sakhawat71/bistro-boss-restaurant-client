@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { auth } from "../../firebase/firebase.config";
+import { Link } from "react-router-dom";
 
 
 const Login = () => {
@@ -42,6 +44,7 @@ const Login = () => {
 
     }
 
+    console.log(auth)
 
     return (
         <div className="hero min-h-screen bg-base-200">
@@ -121,6 +124,15 @@ const Login = () => {
                             <input disabled={disabled} type="submit" value="Login" className="btn btn-primary"></input>
                         </div>
                     </form>
+
+                    <div className="mx-auto ">
+                        <span
+                            className="text-[#D1A054]"
+                        >New here? <Link
+                            to="/register"
+                            className="font-bold"
+                        >Create a New Account</Link> </span>
+                    </div>
 
                 </div>
             </div>
