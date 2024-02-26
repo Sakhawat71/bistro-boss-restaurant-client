@@ -7,7 +7,6 @@ const Root = () => {
     const location = useLocation()
     console.log(location)
 
-    // const noNavbarFooter = location.pathname.includes('/login')
     const noNavbarFooter = location.pathname.includes('/login') || location.pathname.includes('/register');
 
 
@@ -17,7 +16,8 @@ const Root = () => {
                 {noNavbarFooter || <Navbar></Navbar>}
                 <Outlet></Outlet>
             </div>
-            {noNavbarFooter || Footer}
+            {noNavbarFooter || <Footer></Footer>}
+            
         </div>
     );
 };

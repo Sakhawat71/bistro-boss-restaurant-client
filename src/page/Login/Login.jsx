@@ -3,13 +3,41 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { auth } from "../../firebase/firebase.config";
 import { Link } from "react-router-dom";
-
+import { useForm } from "react-hook-form";
+import signCover from '../../assets/sign/authentication2.png';
+import signBg from '../../assets/sign/authentication.png';
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
 
     const [showPassword, setShowPassword] = useState(false);
-    const captchaRaf = useRef(null);
     const [disabled, setDisabled] = useState(true)
+    const captchaRaf = useRef(null);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+
+    } = useForm()
+
+    const onSubmit = info => {
+        console.log(info)
+    }
+
+
+
+
+    // const handelLogin = e => {
+
+    //     e.preventDefault();
+    //     const form = e.target;
+
+    //     const email = form.email.value;
+    //     const password = form.password.value;
+    //     console.log({ email, password })
+    //     form.reset()
+    // }
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
@@ -18,17 +46,6 @@ const Login = () => {
     useEffect(() => {
         loadCaptchaEnginge(6)
     }, [])
-
-    const handelLogin = e => {
-
-        e.preventDefault();
-        const form = e.target;
-
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log({ email, password })
-        form.reset()
-    }
 
     const handelValidateCaptcha = e => {
 
@@ -44,99 +61,134 @@ const Login = () => {
 
     }
 
-    console.log(auth)
+    console.log("auth info : ", auth)
 
     return (
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content flex-col lg:flex-row border">
+        <>
+            <Helmet>
+                <title>
+                    Bistro | Log in
+                </title>
+            </Helmet>
 
-                <div className="text-center lg:w-1/2 border">
-                    <h1 className="text-5xl font-bold">Login now!</h1>
-                    <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-                </div>
+            <div className="hero min-h-screen bg-base-200 " style={{ backgroundImage: `url(${signBg})` }}>
 
+                <div className="hero-content flex-col lg:flex-row  shadow-2xl my-10">
 
-                <div className="card w-full lg:w-1/2 max-w-sm shadow-2xl bg-base-100 border">
-
-                    <form onSubmit={handelLogin} className="card-body">
-                        <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Email</span>
-                            </label>
-
-                            <input
-                                type="email"
-                                name="email"
-                                placeholder="email"
-                                className="input input-bordered"
-                                required
+                    <div className="text-center lg:w-1/2 ">
+                        <figure>
+                            <img
+                                src={signCover}
+                                alt="Log in cover image"
+                                className="w-full h-full"
                             />
-                        </div>
-
-                        <div className="form-control relative">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-
-                            <input
-                                type={showPassword ? "text" : "password"}
-                                name="password"
-                                placeholder="password"
-                                className="input input-bordered"
-                                required
-                            />
-                            <span onClick={handleTogglePassword} className="absolute bottom-12 right-4 text-xl">
-                                {
-                                    showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye ></FaEye>
-                                }
-                            </span>
-
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
-                        </div>
-
-                        <div className="form-control ">
-                            <label className="label">
-                                <span className="label-text">
-                                    <LoadCanvasTemplate></LoadCanvasTemplate>
-                                </span>
-                            </label>
-
-                            <input
-                                type="text"
-                                name="canvas"
-                                placeholder="type the text above"
-                                className="input input-bordered"
-                                required
-                                ref={captchaRaf}
-                            />
-                            <label className="label">
-                                <button
-                                    onClick={handelValidateCaptcha}
-                                    className="btn mx-auto btn-outline btn-xs">
-                                    Validate
-                                </button>
-                            </label>
-                        </div>
-
-                        <div className="form-control mt-6">
-                            <input disabled={disabled} type="submit" value="Login" className="btn btn-primary"></input>
-                        </div>
-                    </form>
-
-                    <div className="mx-auto ">
-                        <span
-                            className="text-[#D1A054]"
-                        >New here? <Link
-                            to="/register"
-                            className="font-bold"
-                        >Create a New Account</Link> </span>
+                        </figure>
                     </div>
 
+
+                    <div className="card w-full lg:w-1/2 max-w-sm  bg-base-100 " style={{ backgroundImage: `url(${signBg})` }}>
+
+
+                        <h1 className="text-3xl font-bold text-center">Login</h1>
+
+                        <form onSubmit={handleSubmit(onSubmit)} className="card-body pt-0">
+
+
+                            {/* ----- Email Input -------- */}
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text text-base font-semibold">Email</span>
+                                </label>
+
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="email"
+                                    className="input input-bordered"
+                                    {...register("email", { required: true })}
+                                />
+                                {errors.email && <span className="text-red-600"> Email is required</span>}
+                            </div>
+
+                            {/* ------ Password Input ------  */}
+                            <div className="form-control relative">
+                                <label className="label">
+                                    <span className="label-text text-base font-semibold">Password</span>
+                                </label>
+
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    placeholder="password"
+                                    className="input input-bordered"
+                                    {...register("password", {
+                                        required: true,
+                                        minLength: 6,
+                                        maxLength: 20,
+                                        pattern: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,20}$/
+                                    })}
+                                />
+                                <span onClick={handleTogglePassword} className="absolute bottom-4 right-4 text-xl">
+                                    {
+                                        showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye ></FaEye>
+                                    }
+                                </span>
+
+                            </div>
+
+                            {errors.password?.type === "required" && <span className="text-red-600 ">Password is required</span>}
+                            {errors.password?.type === "minLength" && <span className="text-red-600 ">Password must be 6 and 20 characters</span>}
+                            {errors.password?.type === "maxLength" && <span className="text-red-600 ">Password must less then 20 characters</span>}
+                            {errors.password?.type === "pattern" && <span className="text-red-600 ">Password must contain at least one uppercase letter, lowercase letter and one number</span>}
+
+                            {/* --------------- Captcha ------------------------- */}
+                            <div className="form-control ">
+                                <label className="label">
+                                    <span className="label-text">
+                                        <LoadCanvasTemplate></LoadCanvasTemplate>
+                                    </span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="canvas"
+                                    placeholder="type the text above"
+                                    className="input input-bordered"
+                                    required
+                                    ref={captchaRaf}
+                                />
+                                <label className="label">
+                                    <button
+                                        onClick={handelValidateCaptcha}
+                                        className="btn mx-auto btn-outline btn-xs">
+                                        Validate
+                                    </button>
+                                </label>
+                            </div>
+
+                            <div className="form-control mt-6">
+                                <input
+                                    disabled={disabled}
+                                    type="submit"
+                                    value="Login"
+                                    className="btn text-white bg-[#D1A054B2] hover:bg-[#D1A054B2]"
+                                ></input>
+                            </div>
+                        </form>
+
+                        <div className="mx-auto ">
+                            <span
+                                className="text-[#D1A054]"
+                            >New here? <Link
+                                to="/register"
+                                className="font-bold"
+                            >Create a New Account</Link> </span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 
