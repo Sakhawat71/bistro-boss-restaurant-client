@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import signCover from '../../assets/sign/authentication2.png';
 import signBg from '../../assets/sign/authentication.png';
@@ -16,8 +16,10 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [disabled, setDisabled] = useState(true)
     const captchaRaf = useRef(null);
+    
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/'; 
 
     const {
         register,
@@ -41,7 +43,7 @@ const Login = () => {
                         timer: 1000
                     });
 
-                    navigate('/')
+                    navigate(from ,{ replace : true})
                 }
             })
             .catch(error => {

@@ -7,10 +7,11 @@ import signImg from "../../assets/sign/authentication2.png"
 import signBg from '../../assets/sign/authentication.png'
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Register = () => {
 
-    const {registerUserWithEmailPass} = useContext(AuthContext);
+    const { registerUserWithEmailPass, updateProfileUser } = useContext(AuthContext);
     const navigate = useNavigate()
 
     const {
@@ -21,17 +22,34 @@ const Register = () => {
     } = useForm();
 
     const onSubmit = (info) => {
-        console.log(info)
+        // console.log(info)
 
-        registerUserWithEmailPass(info.email,info.password)
-        .then(result => {
-            const signUser = result.user;
-            console.log(signUser)
-            navigate('/')
-        })
-        .catch((error) => {
-            console.log(" sign up error : ",error)
-        })
+        registerUserWithEmailPass(info.email, info.password)
+            .then(result => {
+                const signUser = result.user;
+
+                if (signUser) {
+                    updateProfileUser(info.name, info.photo)
+                        .then(() => {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Profile update",
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
+                }
+
+                // console.log(signUser)
+                navigate('/')
+            })
+            .catch((error) => {
+                console.log(" sign up error : ", error)
+            })
 
     }
 
@@ -86,6 +104,22 @@ const Register = () => {
                                     {...register('name', { required: true })}
                                 />
                                 {errors.name && <span className="text-red-600">Name  is required</span>}
+                            </div>
+
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text text-base font-semibold">Photo</span>
+                                </label>
+
+                                <input
+                                    type="text"
+                                    // type="file"
+                                    name="photo"
+                                    placeholder="Photo"
+                                    className="input input-bordered"
+                                    {...register('photo',)}
+                                />
+                                {/* {errors.photo && <span className="text-red-600">Photo is required</span>} */}
                             </div>
 
                             <div className="form-control">
