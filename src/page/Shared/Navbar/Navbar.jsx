@@ -96,6 +96,9 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 {
+                    user && <span className="px-10">{user?.displayName}</span>
+                }
+                {
                     user ?
                         <button onClick={handelLogout} className="btn btn-outline text-white">Log out</button>
                         :
