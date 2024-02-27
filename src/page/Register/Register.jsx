@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signImg from "../../assets/sign/authentication2.png"
 import signBg from '../../assets/sign/authentication.png'
-
+import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Register = () => {
+
+    const {registerUserWithEmailPass} = useContext(AuthContext);
+    const navigate = useNavigate()
 
     const {
         handleSubmit,
@@ -18,10 +22,21 @@ const Register = () => {
 
     const onSubmit = (info) => {
         console.log(info)
+
+        registerUserWithEmailPass(info.email,info.password)
+        .then(result => {
+            const signUser = result.user;
+            console.log(signUser)
+            navigate('/')
+        })
+        .catch((error) => {
+            console.log(" sign up error : ",error)
+        })
+
     }
 
-    const [showPassword, setShowPassword,] = useState(false);
 
+    const [showPassword, setShowPassword,] = useState(false);
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
@@ -40,7 +55,7 @@ const Register = () => {
                 <div className="hero-content flex-col lg:flex-row  items-center justify-center shadow-2xl">
 
                     <div className="text-center lg:w-1/2 ">
-                        
+
                         <figure className="w-full">
                             <img
                                 src={signImg}
@@ -52,7 +67,7 @@ const Register = () => {
                     </div>
 
 
-                    <div className="card w-full lg:w-1/2 max-w-sm bg-base-100 " style={{backgroundImage: `url(${signBg})`}}>
+                    <div className="card w-full lg:w-1/2 max-w-sm bg-base-100 " style={{ backgroundImage: `url(${signBg})` }}>
 
                         <h1 className="text-center font-bold text-3xl">Sign Up</h1>
 
@@ -136,7 +151,11 @@ const Register = () => {
                             >Go to log in</Link>
                             </span>
                         </div>
-
+                        <div className="flex justify-center mt-5">
+                            <span className="flex items-center justify-center font-medium text-xl">Or sign in with
+                                <FcGoogle className="text-3xl ml-2 "
+                                /></span>
+                        </div>
                     </div>
 
                 </div>

@@ -1,18 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
-import { auth } from "../../firebase/firebase.config";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import signCover from '../../assets/sign/authentication2.png';
 import signBg from '../../assets/sign/authentication.png';
 import { Helmet } from "react-helmet-async";
+import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
 
+    const { loginUserWithEmailPass } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [disabled, setDisabled] = useState(true)
     const captchaRaf = useRef(null);
+    const navigate = useNavigate();
+
 
     const {
         register,
@@ -23,21 +28,28 @@ const Login = () => {
 
     const onSubmit = info => {
         console.log(info)
+        loginUserWithEmailPass(info.email, info.password)
+            .then(result => {
+                const loggedUser = result.user;
+                if (loggedUser) {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Wellcome back my NIgga",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+
+                    navigate('/')
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
 
-
-
-    // const handelLogin = e => {
-
-    //     e.preventDefault();
-    //     const form = e.target;
-
-    //     const email = form.email.value;
-    //     const password = form.password.value;
-    //     console.log({ email, password })
-    //     form.reset()
-    // }
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
@@ -51,7 +63,7 @@ const Login = () => {
 
         e.preventDefault()
         const user_captcha_value = captchaRaf.current.value;
-
+        // ;
         if (validateCaptcha(user_captcha_value)) {
             setDisabled(false)
         }
@@ -61,7 +73,7 @@ const Login = () => {
 
     }
 
-    console.log("auth info : ", auth)
+    // console.log("auth info : ", auth)
 
     return (
         <>
@@ -70,6 +82,7 @@ const Login = () => {
                     Bistro | Log in
                 </title>
             </Helmet>
+
 
             <div className="hero min-h-screen bg-base-200 " style={{ backgroundImage: `url(${signBg})` }}>
 
@@ -91,7 +104,7 @@ const Login = () => {
 
                         <h1 className="text-3xl font-bold text-center">Login</h1>
 
-                        <form onSubmit={handleSubmit(onSubmit)} className="card-body pt-0">
+                        <form onSubmit={handleSubmit(onSubmit)} className="card-body pt-0 pb-5">
 
 
                             {/* ----- Email Input -------- */}
@@ -166,7 +179,7 @@ const Login = () => {
                                 </label>
                             </div>
 
-                            <div className="form-control mt-6">
+                            <div className="form-control">
                                 <input
                                     disabled={disabled}
                                     type="submit"
@@ -178,13 +191,17 @@ const Login = () => {
 
                         <div className="mx-auto ">
                             <span
-                                className="text-[#D1A054]"
+                                className="text-[#D1A054] text-base"
                             >New here? <Link
                                 to="/register"
                                 className="font-bold"
                             >Create a New Account</Link> </span>
                         </div>
-
+                        <div className="flex justify-center mt-5">
+                            <span className="flex items-center justify-center font-medium text-xl">Or sign in with
+                                <FcGoogle className="text-3xl ml-2 "
+                                /></span>
+                        </div>
                     </div>
                 </div>
             </div>
