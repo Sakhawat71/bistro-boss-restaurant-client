@@ -12,14 +12,14 @@ import Swal from "sweetalert2";
 
 const Login = () => {
 
-    const { loginUserWithEmailPass } = useContext(AuthContext);
+    const { loginUserWithEmailPass, googleSignIn } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [disabled, setDisabled] = useState(true)
     const captchaRaf = useRef(null);
-    
+
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || '/'; 
+    const from = location.state?.from?.pathname || '/';
 
     const {
         register,
@@ -38,12 +38,12 @@ const Login = () => {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "Wellcome back my NIgga",
+                        title: "Wellcome",
                         showConfirmButton: false,
                         timer: 1000
                     });
 
-                    navigate(from ,{ replace : true})
+                    navigate(from, { replace: true })
                 }
             })
             .catch(error => {
@@ -75,6 +75,27 @@ const Login = () => {
 
     }
 
+    const hendelGoogleSign = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                if (user) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Wellcome back my NIgga",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+
+                    navigate(from, { replace: true })
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
     // console.log("auth info : ", auth)
 
     return (
@@ -201,7 +222,9 @@ const Login = () => {
                         </div>
                         <div className="flex justify-center mt-5">
                             <span className="flex items-center justify-center font-medium text-xl">Or sign in with
-                                <FcGoogle className="text-3xl ml-2 "
+                                <FcGoogle 
+                                onClick={hendelGoogleSign}
+                                className="text-3xl ml-2 "
                                 /></span>
                         </div>
                     </div>

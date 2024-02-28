@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import signImg from "../../assets/sign/authentication2.png"
 import signBg from '../../assets/sign/authentication.png'
 import { FcGoogle } from "react-icons/fc";
@@ -11,8 +11,10 @@ import Swal from "sweetalert2";
 
 const Register = () => {
 
-    const { registerUserWithEmailPass, updateProfileUser } = useContext(AuthContext);
+    const { registerUserWithEmailPass, updateProfileUser, googleSignIn } = useContext(AuthContext);
     const navigate = useNavigate()
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
 
     const {
         handleSubmit,
@@ -59,6 +61,29 @@ const Register = () => {
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     }
+
+    const hendelGoogleSign = () => {
+        googleSignIn()
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                if (user) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Wellcome",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+
+                    navigate(from, { replace: true })
+                }
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
 
     return (
         <>
@@ -187,7 +212,9 @@ const Register = () => {
                         </div>
                         <div className="flex justify-center mt-5">
                             <span className="flex items-center justify-center font-medium text-xl">Or sign in with
-                                <FcGoogle className="text-3xl ml-2 "
+                                <FcGoogle 
+                                onClick={hendelGoogleSign}
+                                className="text-3xl ml-2 "
                                 /></span>
                         </div>
                     </div>
