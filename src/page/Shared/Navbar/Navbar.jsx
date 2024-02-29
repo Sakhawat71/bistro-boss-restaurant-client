@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
+import { TiShoppingCart } from "react-icons/ti";
 
 const Navbar = () => {
 
@@ -51,6 +52,19 @@ const Navbar = () => {
                     isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
                 }
             >My Cart</NavLink>
+        </li>
+        <li>
+            <NavLink
+                to={"/my-cart"}
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
+                }
+            >
+                <div className="flex items-center gap-1">
+                    <TiShoppingCart className="text-xl"/>
+                    <div className="badge">+0</div>
+                </div>
+            </NavLink>
         </li>
 
         {
