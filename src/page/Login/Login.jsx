@@ -29,7 +29,7 @@ const Login = () => {
     } = useForm()
 
     const onSubmit = info => {
-        console.log(info)
+        //console.log(info)
         loginUserWithEmailPass(info.email, info.password)
             .then(result => {
                 const loggedUser = result.user;
@@ -47,7 +47,7 @@ const Login = () => {
                 }
             })
             .catch(error => {
-                console.log(error)
+                //console.log(error)
             })
     }
 
@@ -79,7 +79,7 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 const user = result.user;
-                console.log(user)
+                //console.log(user)
                 if (user) {
                     Swal.fire({
                         position: "top-end",
@@ -93,10 +93,10 @@ const Login = () => {
                 }
             })
             .catch(error => {
-                console.log(error)
+                //console.log(error)
             })
     }
-    // console.log("auth info : ", auth)
+    // //console.log("auth info : ", auth)
 
     return (
         <>

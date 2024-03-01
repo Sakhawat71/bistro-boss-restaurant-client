@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const MenuCategory = ({ category, linkRoute }) => {
 
-    console.log(linkRoute,category)
+    //console.log(linkRoute,category)
 
     return (
         <div className='max-w-5xl mx-auto'>

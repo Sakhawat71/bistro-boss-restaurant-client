@@ -1,31 +1,59 @@
 import PropTypes from 'prop-types';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+// import axios from 'axios';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const FoodCard = ({ item }) => {
 
     const { image, name, recipe, price, _id } = item;
     const user = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || '/';
+    const axiosSecure = useAxiosSecure()
 
     const handelAddToCard = () => {
 
-        if (user && user?.email) {
-            console.log(name, " >--- ", _id, user?.email)
+        if (user && user.email) {
+            //console.log(name, " >--- ", _id, user?.email)
+
+            const cartItem = {
+                email: user.email,
+                menuId: _id,
+                image,
+                name,
+                price,
+            }
+
+            axiosSecure.post('/api/v1/post-carts', cartItem)
+                .then(res => {
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: `${name} Added to cart`,
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                    }
+                })
+
         }
         else {
             Swal.fire({
                 title: "You are not Logged in",
-                text: "You won't log in ?",
+                text: "Do you wont to log in?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Yes, log in"
             }).then((result) => {
+
                 if (result.isConfirmed) {
-                    navigate('/login')
+                    navigate('/login', { state: { from } })
                 }
 
             });

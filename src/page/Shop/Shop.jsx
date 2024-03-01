@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 const Shop = () => {
 
     const {category} = useParams()
-    console.log(category)
+    //console.log(category)
     
     const [tabIndex, setTabIndex] = useState(0);
     const [menu] = useMenu([]);

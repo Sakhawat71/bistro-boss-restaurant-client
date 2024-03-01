@@ -24,7 +24,7 @@ const Register = () => {
     } = useForm();
 
     const onSubmit = (info) => {
-        // console.log(info)
+        // //console.log(info)
 
         registerUserWithEmailPass(info.email, info.password)
             .then(result => {
@@ -42,15 +42,15 @@ const Register = () => {
                             });
                         })
                         .catch(error => {
-                            console.log(error)
+                            //console.log(error)
                         })
                 }
 
-                // console.log(signUser)
+                // //console.log(signUser)
                 navigate('/')
             })
             .catch((error) => {
-                console.log(" sign up error : ", error)
+                //console.log(" sign up error : ", error)
             })
 
     }
@@ -66,7 +66,7 @@ const Register = () => {
         googleSignIn()
             .then(result => {
                 const user = result.user;
-                console.log(user)
+                //console.log(user)
                 if (user) {
                     Swal.fire({
                         position: "top-end",
@@ -80,7 +80,7 @@ const Register = () => {
                 }
             })
             .catch(error => {
-                console.log(error)
+                //console.log(error)
             })
     }
 
