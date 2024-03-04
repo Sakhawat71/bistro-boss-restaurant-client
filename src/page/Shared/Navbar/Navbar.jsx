@@ -2,10 +2,13 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { TiShoppingCart } from "react-icons/ti";
+import useCart from "../../../hooks/useCart";
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
+    const [cart] = useCart()
+    // console.log(cart)
 
     const handelLogout = () => {
         logOut()
@@ -13,7 +16,7 @@ const Navbar = () => {
 
             })
             .catch(error => {
-                //console.log(error)
+                console.log(error)
             })
     }
 
@@ -61,8 +64,8 @@ const Navbar = () => {
                 }
             >
                 <div className="flex items-center gap-1">
-                    <TiShoppingCart className="text-xl"/>
-                    <div className="badge">+0</div>
+                    <TiShoppingCart className="text-2xl"/>
+                    <div className="badge ">+{cart.length}</div>
                 </div>
             </NavLink>
         </li>
