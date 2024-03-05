@@ -56,17 +56,17 @@ const Navbar = () => {
                 }
             >Our Shop</NavLink>
         </li>
-        <li>
+        {/* <li>
             <NavLink
                 to={"/my-cart"}
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
                 }
             >My Cart</NavLink>
-        </li>
+        </li> */}
         <li>
             <NavLink
-                to={"/my-cart"}
+                to={"/dashboard/user-cart"}
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
                 }

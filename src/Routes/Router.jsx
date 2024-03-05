@@ -3,20 +3,20 @@ import Root from "../Layout/Root";
 import Home from "../page/Home/Home/Home";
 import MenuLayout from "../page/Menu/MenuLayout/MenuLayout";
 import Shop from "../page/Shop/Shop";
-import Error from "../page/Error/Error";
 import Login from "../page/Login/Login";
 import Register from "../page/Register/Register";
-import Cart from "../page/Cart/Cart";
+// import Cart from "../page/Cart/Cart";
 import PrivetRouter from "./PrivetRouter";
 import DashBoard from "../Layout/DashBoard";
 import LandingDash from "../page/Dashboard/LandingPage/LandingDash";
+import ErrorPage from "../page/ErrorPage/ErrorPage";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root></Root>,
-        errorElement : <Error></Error>,
+        errorElement : <ErrorPage></ErrorPage>,
         children :[
             {
                 path: "/",
@@ -38,10 +38,10 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <Register></Register>
             },
-            {
-                path : "/my-cart",
-                element: <PrivetRouter> <Cart></Cart> </PrivetRouter>
-            },
+            // {
+            //     path : "/my-cart",
+            //     element: <PrivetRouter> <Cart></Cart> </PrivetRouter>
+            // },
             {
                 path : "/contact",
                 element: <div><h1>Contact</h1></div>
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "user-cart",
-                element: <div> home</div>
+                element: <PrivetRouter></PrivetRouter>
             },
             {
                 path: "add-review",
