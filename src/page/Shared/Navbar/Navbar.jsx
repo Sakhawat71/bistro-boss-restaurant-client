@@ -30,14 +30,16 @@ const Navbar = () => {
                 }
             >Home</NavLink>
         </li>
-        <li>
-            <NavLink
-                to={"/dashboard/user-home"}
-                className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
-                }
-            >Dashboard</NavLink>
-        </li>
+        {
+            user && <li>
+                <NavLink
+                    to={"/dashboard/user-home"}
+                    className={({ isActive, isPending }) =>
+                        isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
+                    }
+                >Dashboard</NavLink>
+            </li>
+        }
 
         <li>
             <NavLink
@@ -72,27 +74,11 @@ const Navbar = () => {
                 }
             >
                 <div className="flex items-center gap-1">
-                    <TiShoppingCart className="text-2xl"/>
+                    <TiShoppingCart className="text-2xl" />
                     <div className="badge ">+{cart.length}</div>
                 </div>
             </NavLink>
         </li>
-
-        {
-            // user && <>
-
-            //     <li>
-            //         <NavLink
-            //             to={"/my-cart"}
-            //             className={({ isActive, isPending }) =>
-            //                 isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
-            //             }
-            //         >My Cart</NavLink>
-            //     </li>
-
-            // </>
-        }
-
 
     </>
 

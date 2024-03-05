@@ -10,6 +10,7 @@ import PrivetRouter from "./PrivetRouter";
 import DashBoard from "../Layout/DashBoard";
 import LandingDash from "../page/Dashboard/LandingPage/LandingDash";
 import ErrorPage from "../page/ErrorPage/ErrorPage";
+import UserCart from "../page/Dashboard/UserCart/UserCart";
 
 
 const router = createBrowserRouter([
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashBoard></DashBoard>,
+        element: <PrivetRouter><DashBoard></DashBoard></PrivetRouter>,
         children: [
             {
                 path: '/dashboard',
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "user-cart",
-                element: <PrivetRouter></PrivetRouter>
+                element: <UserCart></UserCart> 
             },
             {
                 path: "add-review",

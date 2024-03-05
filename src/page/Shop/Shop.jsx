@@ -6,11 +6,11 @@ import { useState } from "react";
 import useMenu from "../../hooks/useMenu";
 import ShopItems from "./ShopItems/ShopItems";
 import { Helmet } from "react-helmet";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 const Shop = () => {
 
-    const {category} = useParams()
+    // const {category} = useParams()
     //console.log(category)
     
     const [tabIndex, setTabIndex] = useState(0);

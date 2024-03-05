@@ -78,7 +78,7 @@ const DashBoard = () => {
                 </ul>
             </div>
 
-            <div className="bg-[#E8E8E8] flex-1 ">
+            <div className="bg-[#F6F6F6] flex-1 ">
                 <Outlet></Outlet>
             </div>
 

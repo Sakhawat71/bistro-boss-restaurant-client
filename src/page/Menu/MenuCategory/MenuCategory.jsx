@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import MenuItem from '../../Home/PopularMenu/MenuItem';
 import { Link } from 'react-router-dom';
 
-const MenuCategory = ({ category, linkRoute }) => {
+const MenuCategory = ({ category }) => {
 
     //console.log(linkRoute,category)
 
@@ -28,7 +28,7 @@ const MenuCategory = ({ category, linkRoute }) => {
 
 MenuCategory.propTypes = {
     category: PropTypes.array,
-    linkRoute: PropTypes.string,
+    // linkRoute: PropTypes.string,
 };
 
 export default MenuCategory;
