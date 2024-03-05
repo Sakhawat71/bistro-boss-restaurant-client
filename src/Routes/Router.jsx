@@ -9,6 +9,7 @@ import Register from "../page/Register/Register";
 import Cart from "../page/Cart/Cart";
 import PrivetRouter from "./PrivetRouter";
 import DashBoard from "../Layout/DashBoard";
+import LandingDash from "../page/Dashboard/LandingPage/LandingDash";
 
 
 const router = createBrowserRouter([
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path : "/my-cart",
                 element: <PrivetRouter> <Cart></Cart> </PrivetRouter>
+            },
+            {
+                path : "/contact",
+                element: <div><h1>Contact</h1></div>
             }
         ]
     },
@@ -48,9 +53,33 @@ const router = createBrowserRouter([
         element: <DashBoard></DashBoard>,
         children: [
             {
-                path: "",
-                element: <div></div>
-            }
+                path: '/dashboard',
+                element: <LandingDash></LandingDash>
+            },
+            {
+                path: "user-home",
+                element: <div> <h1>Hello welcome</h1></div>
+            },
+            {
+                path: "reservation",
+                element: <div> home</div>
+            },
+            {
+                path: "payment-history",
+                element: <div> home</div>
+            },
+            {
+                path: "user-cart",
+                element: <div> home</div>
+            },
+            {
+                path: "add-review",
+                element: <div> home</div>
+            },
+            {
+                path: "user-booking",
+                element: <div> home</div>
+            },
         ]
     }
 ]);

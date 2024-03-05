@@ -30,6 +30,14 @@ const Navbar = () => {
                 }
             >Home</NavLink>
         </li>
+        <li>
+            <NavLink
+                to={"/dashboard/user-home"}
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
+                }
+            >Dashboard</NavLink>
+        </li>
 
         <li>
             <NavLink
