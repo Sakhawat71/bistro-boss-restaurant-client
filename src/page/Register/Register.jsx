@@ -5,16 +5,18 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import signImg from "../../assets/sign/authentication2.png"
 import signBg from '../../assets/sign/authentication.png'
-import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialSign from "../../components/SocialSign/SocialSign";
 
 const Register = () => {
 
-    const { registerUserWithEmailPass, updateProfileUser, googleSignIn } = useContext(AuthContext);
+    const { registerUserWithEmailPass, updateProfileUser } = useContext(AuthContext);
     const navigate = useNavigate()
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+    const axiosPublic = useAxiosPublic()
 
     const {
         handleSubmit,
@@ -24,33 +26,42 @@ const Register = () => {
     } = useForm();
 
     const onSubmit = (info) => {
-        // //console.log(info)
 
-        registerUserWithEmailPass(info.email, info.password)
+        const { email, name, photo, password } = info;
+        const userForDB = { email, name, photo }
+        // console.log(userForDB)
+
+        registerUserWithEmailPass(email, password)
             .then(result => {
                 const signUser = result.user;
 
                 if (signUser) {
-                    updateProfileUser(info.name, info.photo)
+                    updateProfileUser(name, photo)
                         .then(() => {
-                            Swal.fire({
-                                position: "top-end",
-                                icon: "success",
-                                title: "Profile update",
-                                showConfirmButton: false,
-                                timer: 1000
-                            });
+
+                            axiosPublic.post('/api/v1/add-user', userForDB)
+                                .then(res => {
+                                    if (res.data.insertedId) {
+                                        Swal.fire({
+                                            position: "top-end",
+                                            icon: "success",
+                                            title: "Profile update",
+                                            showConfirmButton: false,
+                                            timer: 1000
+                                        });
+                                        // navigate('/')
+                                        navigate(from, { replace: true })
+                                    }
+                                })
+                                .catch(error => console.log(error))
                         })
                         .catch(error => {
-                            //console.log(error)
+                            console.log(error)
                         })
                 }
-
-                // //console.log(signUser)
-                navigate('/')
             })
             .catch((error) => {
-                //console.log(" sign up error : ", error)
+                console.log(" sign up error : ", error)
             })
 
     }
@@ -62,27 +73,7 @@ const Register = () => {
         setShowPassword(!showPassword);
     }
 
-    const hendelGoogleSign = () => {
-        googleSignIn()
-            .then(result => {
-                const user = result.user;
-                //console.log(user)
-                if (user) {
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "Wellcome",
-                        showConfirmButton: false,
-                        timer: 1000
-                    });
 
-                    navigate(from, { replace: true })
-                }
-            })
-            .catch(error => {
-                //console.log(error)
-            })
-    }
 
 
     return (
@@ -210,13 +201,8 @@ const Register = () => {
                             >Go to log in</Link>
                             </span>
                         </div>
-                        <div className="flex justify-center mt-5">
-                            <span className="flex items-center justify-center font-medium text-xl">Or sign in with
-                                <FcGoogle 
-                                onClick={hendelGoogleSign}
-                                className="text-3xl ml-2 "
-                                /></span>
-                        </div>
+                        
+                        <SocialSign></SocialSign>
                     </div>
 
                 </div>
