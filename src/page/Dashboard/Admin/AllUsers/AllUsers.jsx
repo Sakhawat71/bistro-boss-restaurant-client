@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import SectionTitle from "../../../../components/sectionTitle/SectionTitle";
 import { FaTrashAlt, FaUser } from "react-icons/fa";
+import Swal from "sweetalert2";
 // import { GrUserAdmin } from "react-icons/gr";
 
 const AllUsers = () => {
@@ -20,14 +21,36 @@ const AllUsers = () => {
 
     const handelDeleteUser = id => {
 
-        axiosSecure.delete(`/api/v1/delete-user/${id}`)
-            .then(res => {
-                if (res.data.deletedCount === 1) {
-                    refetch()
-                }
 
-            })
-            .catch(er => console.log(er))
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                axiosSecure.delete(`/api/v1/delete-user/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount === 1) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "User has been deleted.",
+                                icon: "success"
+                            });
+                        }
+
+                    })
+                    .catch(er => console.log(er))
+
+            }
+        });
+
+
 
     }
 
