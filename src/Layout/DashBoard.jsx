@@ -1,12 +1,15 @@
-import { FaCalendarAlt, FaCartPlus, FaHome, FaWallet } from "react-icons/fa";
+import { FaBook, FaCalendarAlt, FaCartPlus, FaHome, FaUsers, FaWallet } from "react-icons/fa";
 import { BsFillCalendar2CheckFill } from "react-icons/bs";
 import { MdMail, MdRateReview } from "react-icons/md";
-import { FaBagShopping } from "react-icons/fa6";
+import { FaBagShopping,  } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink, Outlet } from "react-router-dom";
+import { ImSpoonKnife } from "react-icons/im";
+import { TfiMenuAlt } from "react-icons/tfi";
 
 const DashBoard = () => {
 
+    const isAdmin = true;
 
     return (
         <div className="mx-auto max-w-7xl flex gap-10">
@@ -18,41 +21,75 @@ const DashBoard = () => {
                     <h4 className="font-bold text-base">Restaurant</h4>
                 </div>
                 <ul className="menu uppercase font-medium text-base space-y-2">
-                    
-                    <li>
-                        <NavLink to="/dashboard/user-home">
-                            <FaHome></FaHome>
-                            User Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/reservation">
-                        <FaCalendarAlt />
-                            reservation</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/payment-history">
-                            <FaWallet></FaWallet>
-                            payment history</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/user-cart">
-                            <FaCartPlus></FaCartPlus>
-                            my cart</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/add-review">
-                            <MdRateReview></MdRateReview>
-                            add review</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/user-booking">
-                        <BsFillCalendar2CheckFill />
-                            my booking</NavLink>
-                    </li>
 
-                    <div className="divider divider-accent"></div> 
+                    {
+                        isAdmin ?
+                            <>
+                                <li>
+                                    <NavLink to="/dashboard/user-home">
+                                        <FaHome></FaHome>
+                                        Admin Home</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/reservation">
+                                        <ImSpoonKnife />
+                                        add items</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/payment-history">
+                                        <TfiMenuAlt />
+                                        manage items</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/user-cart">
+                                        <FaBook />
+                                        Manage bookings</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/all-users">
+                                        <FaUsers />
+                                        all users</NavLink>
+                                </li>
 
-                    <ul className="menu uppercase font-medium text-base space-y-1">
+                            </>
+                            :
+                            <>
+                                <li>
+                                    <NavLink to="/dashboard/user-home">
+                                        <FaHome></FaHome>
+                                        User Home</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/reservation">
+                                        <FaCalendarAlt />
+                                        reservation</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/payment-history">
+                                        <FaWallet></FaWallet>
+                                        payment history</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/user-cart">
+                                        <FaCartPlus></FaCartPlus>
+                                        my cart</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/add-review">
+                                        <MdRateReview></MdRateReview>
+                                        add review</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/dashboard/user-booking">
+                                        <BsFillCalendar2CheckFill />
+                                        my booking</NavLink>
+                                </li>
+                            </>
+                    }
+
+                    <div className="divider divider-accent"></div>
+
+                    <div className="menu uppercase font-medium text-base space-y-1">
                         <li>
                             <NavLink to="/">
                                 <FaHome></FaHome>
@@ -73,7 +110,7 @@ const DashBoard = () => {
                                 <MdMail></MdMail>
                                 Contact</NavLink>
                         </li>
-                    </ul>
+                    </div>
 
                 </ul>
             </div>

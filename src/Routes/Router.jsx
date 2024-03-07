@@ -11,6 +11,7 @@ import DashBoard from "../Layout/DashBoard";
 import LandingDash from "../page/Dashboard/LandingPage/LandingDash";
 import ErrorPage from "../page/ErrorPage/ErrorPage";
 import UserCart from "../page/Dashboard/UserCart/UserCart";
+import AllUsers from "../page/Dashboard/Admin/AllUsers/AllUsers";
 
 
 const router = createBrowserRouter([
@@ -39,10 +40,6 @@ const router = createBrowserRouter([
                 path: "/register",
                 element: <Register></Register>
             },
-            // {
-            //     path : "/my-cart",
-            //     element: <PrivetRouter> <Cart></Cart> </PrivetRouter>
-            // },
             {
                 path : "/contact",
                 element: <div><h1>Contact</h1></div>
@@ -81,8 +78,13 @@ const router = createBrowserRouter([
                 path: "user-booking",
                 element: <div> home</div>
             },
+            {
+                path: "all-users",
+                element: <AllUsers></AllUsers>
+            }
         ]
-    }
+    },
+
 ]);
 
 export default router;
