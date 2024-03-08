@@ -32,13 +32,25 @@ const AllUsers = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log('ok')
+                axiosSecure.patch(`/api/v1/make-admin/${id}`)
+                .then(res => {
+                    if(res.data.modifiedCount){
+                        refetch()
+                        Swal.fire({
+                            title: "Done!",
+                            text: "User to Admin.",
+                            icon: "success"
+                        });
 
+                        console.log(res.data)
+                    }
+                })
+                .catch(err => console.log(err))
             }
         });
     }
 
     const handelDeleteUser = id => {
-
 
         Swal.fire({
             title: "Are you sure?",
