@@ -3,7 +3,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import SectionTitle from "../../../../components/sectionTitle/SectionTitle";
 import { FaTrashAlt, FaUser } from "react-icons/fa";
 import Swal from "sweetalert2";
-// import { GrUserAdmin } from "react-icons/gr";
+import { GrUserAdmin } from "react-icons/gr";
 
 const AllUsers = () => {
 
@@ -17,7 +17,25 @@ const AllUsers = () => {
         }
     })
 
+    const handelMakeAdmin = id => {
+        
+        console.log("make admin : ", id)
 
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Make Admin"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log('ok')
+
+            }
+        });
+    }
 
     const handelDeleteUser = id => {
 
@@ -86,15 +104,21 @@ const AllUsers = () => {
                         {
                             users.map((user, i) => <tr
                                 key={user._id}
-                                className="hover">
+                                className="hover font-medium text-base">
 
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>
-                                    <button className="btn bg-[#D1A054] text-white">
-                                        {/* <GrUserAdmin></GrUserAdmin> */}
-                                        <FaUser></FaUser>
+                                    <button
+                                        onClick={() => handelMakeAdmin(user._id)}
+                                        className="btn btn-sm bg-[#D1A054] text-white">
+                                        {
+                                            user?.role === 'admin' ?
+                                                <GrUserAdmin />
+                                                :
+                                                <FaUser />
+                                        }
                                     </button>
                                 </td>
                                 <td>
