@@ -12,15 +12,19 @@ const AllUsers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await axiosSecure.get("/api/v1/all-user",{
-                headers: {'authorization' : localStorage.getItem('access-token')}
-            })
+            const res = await axiosSecure.get("/api/v1/all-user")
             return res.data;
         }
     })
 
+    // , {
+    //     headers: {
+    //         'authorization': localStorage.getItem('access-token')
+    //     }
+    // }
+
     const handelMakeAdmin = id => {
-        
+
         console.log("make admin : ", id)
 
         Swal.fire({
@@ -35,19 +39,19 @@ const AllUsers = () => {
             if (result.isConfirmed) {
                 console.log('ok')
                 axiosSecure.patch(`/api/v1/make-admin/${id}`)
-                .then(res => {
-                    if(res.data.modifiedCount){
-                        refetch()
-                        Swal.fire({
-                            title: "Done!",
-                            text: "User to Admin.",
-                            icon: "success"
-                        });
+                    .then(res => {
+                        if (res.data.modifiedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: "Done!",
+                                text: "User to Admin.",
+                                icon: "success"
+                            });
 
-                        console.log(res.data)
-                    }
-                })
-                .catch(err => console.log(err))
+                            console.log(res.data)
+                        }
+                    })
+                    .catch(err => console.log(err))
             }
         });
     }
