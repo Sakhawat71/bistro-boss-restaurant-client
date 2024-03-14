@@ -1,10 +1,6 @@
 
 const useAdmin = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+    return ;
 };
 
 export default useAdmin;
