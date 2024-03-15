@@ -6,10 +6,11 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink, Outlet } from "react-router-dom";
 import { ImSpoonKnife } from "react-icons/im";
 import { TfiMenuAlt } from "react-icons/tfi";
+import useAdmin from "../hooks/useAdmin";
 
 const DashBoard = () => {
 
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     return (
         <div className="mx-auto max-w-7xl flex gap-10">
