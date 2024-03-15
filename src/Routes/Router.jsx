@@ -12,6 +12,7 @@ import LandingDash from "../page/Dashboard/LandingPage/LandingDash";
 import ErrorPage from "../page/ErrorPage/ErrorPage";
 import UserCart from "../page/Dashboard/UserCart/UserCart";
 import AllUsers from "../page/Dashboard/Admin/AllUsers/AllUsers";
+import AdminRoute from "./AdminRoute";
 
 
 const router = createBrowserRouter([
@@ -80,7 +81,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "all-users",
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             }
         ]
     },
