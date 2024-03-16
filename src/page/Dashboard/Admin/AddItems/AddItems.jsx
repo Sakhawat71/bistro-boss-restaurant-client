@@ -12,7 +12,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const AddItems = () => {
 
     const axiosSecure = useAxiosSecure();
-    const { register, handleSubmit, } = useForm();
+    const { register, handleSubmit,reset } = useForm();
     const onSubmit = async (info) => {
 
         const imageData = { image: info.image[0] }
@@ -35,6 +35,7 @@ const AddItems = () => {
 
             const menuRes = await axiosSecure.post('/api/v1/add-menu', menuItem)
             if (menuRes.data.acknowledged) {
+                reset()
                 Swal.fire({
                     position: "top-end",
                     icon: "success",
@@ -48,7 +49,7 @@ const AddItems = () => {
 
 
     return (
-        <div className="border-4 h-full bg-white">
+        <div className="border h-full bg-white">
             <SectionTitle
                 subtitle={'What`s new?'}
                 mainTitle={'ADD AN ITEM'}
