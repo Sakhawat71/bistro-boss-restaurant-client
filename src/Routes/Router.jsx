@@ -62,11 +62,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "reservation",
-                element: <div> home</div>
+                element: <div> reservation</div>
             },
             {
                 path: "payment-history",
-                element: <div> home</div>
+                element: <div> payment-history</div>
             },
             {
                 path: "user-cart",
@@ -74,12 +74,14 @@ const router = createBrowserRouter([
             },
             {
                 path: "add-review",
-                element: <div> home</div>
+                element: <div> add-review</div>
             },
             {
                 path: "user-booking",
-                element: <div> home</div>
+                element: <div> user-booking</div>
             },
+
+            // admin releted route
             {
                 path: "all-users",
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
