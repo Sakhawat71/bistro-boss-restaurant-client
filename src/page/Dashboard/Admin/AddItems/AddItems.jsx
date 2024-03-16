@@ -3,6 +3,7 @@ import SectionTitle from "../../../../components/sectionTitle/SectionTitle";
 import { ImSpoonKnife } from "react-icons/im";
 import axios from "axios";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const image_hosting_key = import.meta.env.VITE_Image_hosting_api;
@@ -14,26 +15,34 @@ const AddItems = () => {
     const { register, handleSubmit, } = useForm();
     const onSubmit = async (info) => {
 
-        const imageData =  {image : info.image[0]}
-        const res = await axios.post(image_hosting_api,imageData,{
+        const imageData = { image: info.image[0] }
+        const res = await axios.post(image_hosting_api, imageData, {
             headers: {
                 "content-type": "multipart/form-data",
             }
         })
 
-        if(res.data.success){
+        if (res.data.success) {
 
             const menuItem = {
-                name : info.name,
-                category : info.category,
-                price : parseFloat(info.price),
-                recipe : info.recipe,
-                image : res.data.data.display_url
+                name: info.name,
+                category: info.category,
+                price: parseFloat(info.price),
+                recipe: info.recipe,
+                image: res.data.data.display_url
             }
-            console.log(menuItem);
+            // console.log(menuItem);
 
-            axiosSecure.post('')
-
+            const menuRes = await axiosSecure.post('/api/v1/add-menu', menuItem)
+            if (menuRes.data.acknowledged) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Your work has been saved",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         }
     };
 
@@ -75,9 +84,9 @@ const AddItems = () => {
                             <select
                                 {...register("category")}
                                 className="select w-full"
-                                required 
+                                required
                                 defaultValue={"disabled"}
-                                >
+                            >
 
                                 <option disabled selected value="disabled">Category</option>
                                 <option value="salad">Salad</option>
