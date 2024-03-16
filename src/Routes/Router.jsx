@@ -13,6 +13,7 @@ import ErrorPage from "../page/ErrorPage/ErrorPage";
 import UserCart from "../page/Dashboard/UserCart/UserCart";
 import AllUsers from "../page/Dashboard/Admin/AllUsers/AllUsers";
 import AdminRoute from "./AdminRoute";
+import AddItems from "../page/Dashboard/Admin/AddItems/AddItems";
 
 
 const router = createBrowserRouter([
@@ -82,6 +83,18 @@ const router = createBrowserRouter([
             {
                 path: "all-users",
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+            },
+            {
+                path: "add-items",
+                element: <AdminRoute> <AddItems></AddItems> </AdminRoute>
+            },
+            {
+                path: "manage-items",
+                element: <AdminRoute> <div>Manage Items</div> </AdminRoute>
+            },
+            {
+                path: "manage-bookings",
+                element: <AdminRoute> <div>Manage Bookings</div> </AdminRoute>
             }
         ]
     },

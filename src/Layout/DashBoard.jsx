@@ -32,17 +32,17 @@ const DashBoard = () => {
                                         Admin Home</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/reservation">
+                                    <NavLink to="/dashboard/add-items">
                                         <ImSpoonKnife />
                                         add items</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/payment-history">
+                                    <NavLink to="/dashboard/manage-items">
                                         <TfiMenuAlt />
                                         manage items</NavLink>
                                 </li>
                                 <li>
-                                    <NavLink to="/dashboard/user-cart">
+                                    <NavLink to="/dashboard/manage-bookings">
                                         <FaBook />
                                         Manage bookings</NavLink>
                                 </li>
