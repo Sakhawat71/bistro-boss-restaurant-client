@@ -4,6 +4,7 @@ import useMenu from "../../../../hooks/useMenu";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import { Watch } from "react-loader-spinner";
+import { Link } from "react-router-dom";
 
 const ManageItems = () => {
 
@@ -24,9 +25,6 @@ const ManageItems = () => {
         />
     }
 
-    const handelUpdateItem = id => {
-        console.log(id);
-    }
 
     const handelDeleteItem = id => {
 
@@ -92,7 +90,7 @@ const ManageItems = () => {
 
                                 <td>
                                     <div className="avatar">
-                                        <div className="w-20 rounded-xl">
+                                        <div className="w-16 rounded-xl">
                                             <img src={item.image} />
                                         </div>
                                     </div>
@@ -101,11 +99,11 @@ const ManageItems = () => {
                                 <td>{item.name}</td>
                                 <td>${item.price}</td>
                                 <td>
-                                    <button
-                                        onClick={() => handelUpdateItem(item._id)}
+                                    <Link
+                                        to={`/dashboard/update-items/${item._id}`}
                                         className="btn btn-sm bg-[#D1A054] text-white">
                                         <FaRegEdit></FaRegEdit>
-                                    </button>
+                                    </Link>
                                 </td>
                                 <td>
 
