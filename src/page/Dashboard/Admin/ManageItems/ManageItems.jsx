@@ -2,12 +2,27 @@ import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import SectionTitle from "../../../../components/sectionTitle/SectionTitle";
 import useMenu from "../../../../hooks/useMenu";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { Watch } from "react-loader-spinner";
 
 const ManageItems = () => {
 
-    const [menu] = useMenu();
-    console.log(menu);
+    const [menu, refetch, isLoading] = useMenu();
+    const axiosSecure = useAxiosSecure();
+    // console.log(menu);
 
+    if (isLoading) {
+        return <Watch
+            visible={true}
+            height="80"
+            width="80"
+            radius="48"
+            color="#4fa94d"
+            ariaLabel="watch-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+        />
+    }
 
     const handelUpdateItem = id => {
         console.log(id);
@@ -26,15 +41,19 @@ const ManageItems = () => {
         }).then((result) => {
             if (result.isConfirmed) {
 
-                console.log(id);
-
-                Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
-                    icon: "success"
-                });
-
-
+                axiosSecure.delete(`/api/v1/delete-menu/${id}`)
+                    .then(res => {
+                        refetch()
+                        if (res.data.deletedCount === 1) {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Your work has been saved",
+                                showConfirmButton: false,
+                                timer: 500
+                              });
+                        }
+                    })
             }
         });
     }

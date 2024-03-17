@@ -5,7 +5,7 @@ const useMenu = () => {
 
     const axiosPublic = useAxiosPublic()
 
-    const {data : menu = [],refetch}= useQuery({
+    const {data : menu = [],refetch,isLoading}= useQuery({
         queryKey: ['menu'],
         queryFn: async () => {
             const res = await axiosPublic.get('/api/v1/menu');
@@ -15,7 +15,7 @@ const useMenu = () => {
 
 
 
-    return [menu,refetch];
+    return [menu,refetch,isLoading];
 };
 
 export default useMenu;
