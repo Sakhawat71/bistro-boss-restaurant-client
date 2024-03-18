@@ -1,46 +1,53 @@
 import { useLoaderData } from "react-router-dom";
 import SectionTitle from "../../../../components/sectionTitle/SectionTitle";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+
+const image_hosting_key = import.meta.env.VITE_Image_hosting_api;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
 
 const UpdateItems = () => {
 
-    const oldItemData = useLoaderData()
-    const {name,price,recipe,category} = oldItemData;
-    console.log(oldItemData);
+    const axiosSecure = useAxiosSecure()
+    const { name, price, recipe, category, image,_id } = useLoaderData()
+
 
     const { register, handleSubmit, } = useForm();
     const onSubmit = async (info) => {
-        console.log(info);
-        // const imageData = { image: info.image[0] }
-        // const res = await axios.post(image_hosting_api, imageData, {
-        //     headers: {
-        //         "content-type": "multipart/form-data",
-        //     }
-        // })
 
-        // if (res.data.success) {
+        const imageData = { image: info.image[0] }
+        const res = await axios.post(image_hosting_api, imageData, {
+            headers: {
+                "content-type": "multipart/form-data",
+            }
+        })
 
-        //     const menuItem = {
-        //         name: info.name,
-        //         category: info.category,
-        //         price: parseFloat(info.price),
-        //         recipe: info.recipe,
-        //         image: res.data.data.display_url
-        //     }
-        //     // console.log(menuItem);
+        if (res.data.success) {
+            console.log('img update');
+        }
+        const updateMenuItem = {
+            name: info.name,
+            category: info.category,
+            price: parseFloat(info.price),
+            recipe: info.recipe,
+            image: res.data.data.display_url,
+        }
+        console.log(updateMenuItem);
+        console.log("new",res.data.data.display_url,"old :" ,image);
+        const menuRes = await axiosSecure.patch(`/api/v1/update-item/${_id}`, updateMenuItem)
+        if (menuRes.data.acknowledged) {
 
-        //     const menuRes = await axiosSecure.post('/api/v1/add-menu', menuItem)
-        //     if (menuRes.data.acknowledged) {
-        //         reset()
-        //         Swal.fire({
-        //             position: "top-end",
-        //             icon: "success",
-        //             title: "Your work has been saved",
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //         });
-        //     }
-        // }
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+
     };
 
     return (
@@ -131,6 +138,7 @@ const UpdateItems = () => {
                             type="file"
                             className="file-input file-input-bordered w-full max-w-xs "
                             required
+                            // defaultValue={image}
                         />
                     </div>
 
