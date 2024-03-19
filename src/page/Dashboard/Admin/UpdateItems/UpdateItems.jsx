@@ -11,31 +11,45 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 const UpdateItems = () => {
 
     const axiosSecure = useAxiosSecure()
-    const { name, price, recipe, category, image,_id } = useLoaderData()
+    const { name, price, recipe, category, image, _id } = useLoaderData()
 
 
     const { register, handleSubmit, } = useForm();
     const onSubmit = async (info) => {
 
-        const imageData = { image: info.image[0] }
-        const res = await axios.post(image_hosting_api, imageData, {
-            headers: {
-                "content-type": "multipart/form-data",
-            }
-        })
 
-        if (res.data.success) {
-            console.log('img update');
+        let imageUpdateOrNot;
+        if (info.image[0]) {
+
+            const imageData = { image: info.image[0] }
+            const res = await axios.post(image_hosting_api, imageData, {
+                headers: {
+                    "content-type": "multipart/form-data",
+                }
+            })
+
+            if (res.data.success) {
+                console.log('updated Image : ',res.data.data.display_url);
+                imageUpdateOrNot = res.data.data.display_url;
+            }
+
         }
+        else {
+            console.log("Old Image : ",image);
+            imageUpdateOrNot = image;
+        }
+
+
         const updateMenuItem = {
             name: info.name,
             category: info.category,
             price: parseFloat(info.price),
             recipe: info.recipe,
-            image: res.data.data.display_url,
+            // image: res.data.data.display_url,
+            image: imageUpdateOrNot,
         }
-        console.log(updateMenuItem);
-        console.log("new",res.data.data.display_url,"old :" ,image);
+        console.log("update Item : " , updateMenuItem);
+
         const menuRes = await axiosSecure.patch(`/api/v1/update-item/${_id}`, updateMenuItem)
         if (menuRes.data.acknowledged) {
 
@@ -44,7 +58,7 @@ const UpdateItems = () => {
                 icon: "success",
                 title: "Your work has been saved",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 500
             });
         }
 
@@ -137,8 +151,7 @@ const UpdateItems = () => {
                             {...register("image")}
                             type="file"
                             className="file-input file-input-bordered w-full max-w-xs "
-                            required
-                            // defaultValue={image}
+                        // required
                         />
                     </div>
 
