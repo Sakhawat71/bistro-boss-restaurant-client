@@ -10,7 +10,7 @@ const Payment = () => {
 
     const options = {
         mode: 'payment',
-        amount: 1099,
+        amount: 100,
         currency: 'usd',
         // Fully customizable with appearance API.
         appearance: {
@@ -22,7 +22,7 @@ const Payment = () => {
     return (
         <div className="px-20 mt-20">
             <h1 className="text-2xl font-bold text-center my-10">PAYMENT</h1>
-            <div>
+            <div className="">
                 <Elements stripe={stripePromise} options={options} >
                     <CheckoutForm></CheckoutForm>
                 </Elements>

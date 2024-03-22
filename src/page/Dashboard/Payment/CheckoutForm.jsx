@@ -10,20 +10,26 @@ const CheckoutForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!stripe || !elements) {
+        if (elements === null) {
             return;
         }
 
-        const card = elements.getElement(CardElement)
-        if (card === null) {
-            return;
-        }
-        // const {error, paymentMethod} = await stripe.createPaymentMethod({
+        const card = elements.getElement(CardElement);
+
+        console.log("elements" , card);
+
+        // console.log("elements" , elements._commonOptions);
+
+        // const card = elements.getElement(CardElement)
+        // if (card === null) {
+        //     return;
+        // }
+        // const { error, paymentMethod } = await stripe.createPaymentMethod({
         //     type: 'card',
         //     card
         // })
 
-        // console.log(paymentMethod);
+
         // const { error: submitError } = await elements.submit();
         // if (submitError) {
         //     // Show error to your customer
@@ -58,6 +64,8 @@ const CheckoutForm = () => {
         // }
     };
 
+
+
     return (
         <form onSubmit={handleSubmit}>
             <PaymentElement />
@@ -72,7 +80,8 @@ const CheckoutForm = () => {
             {/* Show error message to your customers */}
             {errorMessage && <div>{errorMessage}</div>}
 
-        </form>
+        </form> 
+
     );
 };
 
