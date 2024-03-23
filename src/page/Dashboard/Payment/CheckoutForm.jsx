@@ -1,4 +1,4 @@
-import { CardElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 
 
@@ -36,8 +36,6 @@ const CheckoutForm = () => {
         }
     };
 
-
-
     return (
         <form onSubmit={handleSubmit}>
             <CardElement
@@ -64,7 +62,7 @@ const CheckoutForm = () => {
 
             </div>
 
-            {/* Show error message to your customers */}
+            {/* Show error message */}
             {errorMessage && <div className="text-center text-red-600">{errorMessage}</div>}
 
         </form>
