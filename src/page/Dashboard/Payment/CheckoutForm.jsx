@@ -11,10 +11,11 @@ const CheckoutForm = () => {
     const elements = useElements()
     const [errorMessage, setErrorMessage] = useState(null)
     const [clientSecret, setClientSecret] = useState('')
+    const [transactionId,setTransactionId] = useState('')
     const axiosSecure = useAxiosSecure();
     const [cart] = useCart()
     const user = useAuth()
-
+    console.log(cart);
 
     const totelPrice = cart.reduce((price, item) => { return price + item.price }, 0)
 
@@ -29,6 +30,7 @@ const CheckoutForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setTransactionId('')
 
         if (!stripe || !elements) {
             return;
@@ -70,43 +72,72 @@ const CheckoutForm = () => {
 
         if (confiremError) {
             console.log(confiremError);
+            // setErrorMessage(confiremError.message)
         }
         else {
-            console.log(paymentIntent);
+            console.log('paymentIntent', paymentIntent);
+            if(paymentIntent.status === "succeeded"){
+                setTransactionId(paymentIntent.id)
+                
+                const payment = {
+                    email : user?.email,
+                    price : totelPrice,
+                    itemIds : cart.map(item => item._id),
+                    menuIds : cart.map(item => item.menuId),
+                    status : 'panding',
+                }
+
+                const res = await axiosSecure.post('/api/payment-details', payment)
+                console.log('res data: ', res.data.data);
+
+                console.log(payment);
+            }
         }
+        
 
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement
-                ptions={{
-                    style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#424770',
-                            '::placeholder': {
-                                color: '#aab7c4',
-                            },
-                        },
-                        invalid: {
-                            color: '#9e2146',
-                        },
-                    },
-                }}
-            />
 
-            <div className=" flex my-5">
-                <button className="btn btn-outline w-1/2 mx-auto" type="submit" disabled={!stripe}>
-                    Pay
-                </button>
-
+        <div>
+            <div className="mb-10 text-2xl font-bold">
+                <p>Total : ${totelPrice}</p>
             </div>
 
-            {/* Show error message */}
-            {errorMessage && <div className="text-center text-red-600">{errorMessage}</div>}
+            <form onSubmit={handleSubmit}>
 
-        </form>
+                <CardElement
+                    ptions={{
+                        style: {
+                            base: {
+                                fontSize: '16px',
+                                color: '#424770',
+                                '::placeholder': {
+                                    color: '#aab7c4',
+                                },
+                            },
+                            invalid: {
+                                color: '#9e2146',
+                            },
+                        },
+                    }}
+                />
+
+                <div className=" flex my-5">
+                    <button className="btn btn-outline w-1/2 mx-auto" type="submit" disabled={!stripe}>
+                        Pay
+                    </button>
+
+                </div>
+
+                {/* Show error message */}
+                {errorMessage && <div className="text-center text-red-600">{errorMessage}</div>}
+
+                {transactionId && <div className="text-center">Your Transaction ID: <span className="text-green-600">{transactionId}</span> </div>}
+
+            </form>
+        </div>
+
     );
 };
 

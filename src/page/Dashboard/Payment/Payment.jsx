@@ -7,20 +7,6 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK)
 
 const Payment = () => {
 
-
-
-    // const options = {
-    //     mode: 'payment',
-    //     amount: 100,
-    //     currency: 'usd',
-    //     // Fully customizable with appearance API.
-    //     appearance: {
-    //         /*...*/
-    //     },
-    // };
-    // options={options}
-
-
     return (
         <div className="px-20 mt-20">
             <Helmet title="Bistro | Payment"></Helmet>
