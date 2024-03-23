@@ -1,5 +1,8 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useCart from "../../../hooks/useCart";
+import useAuth from "../../../hooks/useAuth";
 
 
 const CheckoutForm = () => {
@@ -7,6 +10,22 @@ const CheckoutForm = () => {
     const stripe = useStripe()
     const elements = useElements()
     const [errorMessage, setErrorMessage] = useState(null)
+    const [clientSecret, setClientSecret] = useState('')
+    const axiosSecure = useAxiosSecure();
+    const [cart] = useCart()
+    const user = useAuth()
+
+
+    const totelPrice = cart.reduce((price, item) => { return price + item.price }, 0)
+
+    useEffect(() => {
+        axiosSecure.post('/api/v1/create-payment-intent', { price: totelPrice })
+            .then(res => {
+                console.log(res.data.clientSecret); // clg
+                setClientSecret(res.data.clientSecret)
+            })
+    }, [axiosSecure, totelPrice])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,11 +39,13 @@ const CheckoutForm = () => {
             return;
         }
 
+
+        // create Payment Method
+
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
             card
         })
-
 
         if (error) {
             console.log(error);
@@ -34,6 +55,26 @@ const CheckoutForm = () => {
             setErrorMessage(null)
             console.log("paymentMethod", paymentMethod);
         }
+
+        // confirm Card Payment
+
+        const { paymentIntent, error: confiremError } = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: user?.displayName || 'anonymous_name',
+                    email: user?.email || 'anonymous_email',
+                }
+            }
+        })
+
+        if (confiremError) {
+            console.log(confiremError);
+        }
+        else {
+            console.log(paymentIntent);
+        }
+
     };
 
     return (

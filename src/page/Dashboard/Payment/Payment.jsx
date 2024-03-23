@@ -9,15 +9,16 @@ const Payment = () => {
 
 
 
-    const options = {
-        mode: 'payment',
-        amount: 100,
-        currency: 'usd',
-        // Fully customizable with appearance API.
-        appearance: {
-            /*...*/
-        },
-    };
+    // const options = {
+    //     mode: 'payment',
+    //     amount: 100,
+    //     currency: 'usd',
+    //     // Fully customizable with appearance API.
+    //     appearance: {
+    //         /*...*/
+    //     },
+    // };
+    // options={options}
 
 
     return (
@@ -25,7 +26,7 @@ const Payment = () => {
             <Helmet title="Bistro | Payment"></Helmet>
             <h1 className="text-2xl font-bold text-center my-10">PAYMENT</h1>
             <div className="">
-                <Elements stripe={stripePromise} options={options} >
+                <Elements stripe={stripePromise}  >
                     <CheckoutForm></CheckoutForm>
                 </Elements>
             </div>
