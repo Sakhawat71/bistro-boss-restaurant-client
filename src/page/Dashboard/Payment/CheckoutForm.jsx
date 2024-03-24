@@ -91,9 +91,10 @@ const CheckoutForm = () => {
                     itemIds: cart?.map(item => item._id),
                     menuIds: cart?.map(item => item.menuId),
                     status: 'panding',
+                    data : Date()
                 }
 
-                const res = await axiosSecure.post('/api/payment-details', payment)
+                const res = await axiosSecure.post('/api/v1/payment-details', payment)
                 if (res.data.paymentResult.insertedId) {
                     // console.log(res.data.paymentResult.insertedId);
                     Swal.fire({

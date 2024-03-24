@@ -17,6 +17,7 @@ import AddItems from "../page/Dashboard/Admin/AddItems/AddItems";
 import ManageItems from "../page/Dashboard/Admin/ManageItems/ManageItems";
 import UpdateItems from "../page/Dashboard/Admin/UpdateItems/UpdateItems";
 import Payment from "../page/Dashboard/Payment/Payment";
+import PaymentHistory from "../page/Dashboard/PaymentHistory/PaymentHistory";
 
 
 
@@ -74,7 +75,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "payment-history",
-                element: <div> payment-history</div>
+                element: <PaymentHistory></PaymentHistory>
             },
             {
                 path: "user-cart",
