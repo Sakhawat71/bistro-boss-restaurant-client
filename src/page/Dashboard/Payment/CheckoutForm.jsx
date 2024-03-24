@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useCart from "../../../hooks/useCart";
 import useAuth from "../../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 
 const CheckoutForm = () => {
@@ -11,21 +12,25 @@ const CheckoutForm = () => {
     const elements = useElements()
     const [errorMessage, setErrorMessage] = useState(null)
     const [clientSecret, setClientSecret] = useState('')
-    const [transactionId,setTransactionId] = useState('')
+    const [transactionId, setTransactionId] = useState('')
     const axiosSecure = useAxiosSecure();
-    const [cart] = useCart()
+    const [cart, refetch] = useCart()
     const user = useAuth()
-    console.log(cart);
+    // console.log(cart);
 
-    const totelPrice = cart.reduce((price, item) => { return price + item.price }, 0)
+    const totelPrice = cart?.reduce((price, item) => { return price + item.price }, 0)
+
 
     useEffect(() => {
-        axiosSecure.post('/api/v1/create-payment-intent', { price: totelPrice })
-            .then(res => {
-                console.log(res.data.clientSecret); // clg
-                setClientSecret(res.data.clientSecret)
-            })
+        if (totelPrice > 0) {
+            axiosSecure.post('/api/v1/create-payment-intent', { price: totelPrice })
+                .then(res => {
+                    console.log(res.data.clientSecret); // clg
+                    setClientSecret(res.data.clientSecret)
+                })
+        }
     }, [axiosSecure, totelPrice])
+
 
 
     const handleSubmit = async (e) => {
@@ -50,7 +55,7 @@ const CheckoutForm = () => {
         })
 
         if (error) {
-            console.log(error);
+            // console.log(error);
             setErrorMessage(error.message)
         }
         else {
@@ -71,29 +76,38 @@ const CheckoutForm = () => {
         })
 
         if (confiremError) {
-            console.log(confiremError);
-            // setErrorMessage(confiremError.message)
+            // console.log(confiremError);
+            setErrorMessage(confiremError.message)
         }
         else {
-            console.log('paymentIntent', paymentIntent);
-            if(paymentIntent.status === "succeeded"){
+            // console.log('paymentIntent', paymentIntent);
+            if (paymentIntent.status === "succeeded") {
                 setTransactionId(paymentIntent.id)
-                
+
                 const payment = {
-                    email : user?.email,
-                    price : totelPrice,
-                    itemIds : cart.map(item => item._id),
-                    menuIds : cart.map(item => item.menuId),
-                    status : 'panding',
+                    email: user?.email,
+                    price: totelPrice,
+                    transactionId: paymentIntent.id,
+                    itemIds: cart?.map(item => item._id),
+                    menuIds: cart?.map(item => item.menuId),
+                    status: 'panding',
                 }
 
                 const res = await axiosSecure.post('/api/payment-details', payment)
-                console.log('res data: ', res.data.data);
-
-                console.log(payment);
+                if (res.data.paymentResult.insertedId) {
+                    // console.log(res.data.paymentResult.insertedId);
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your Paymet has been Done",
+                        showConfirmButton: false,
+                        timer: 500
+                      });
+                    refetch()
+                }
             }
         }
-        
+
 
     };
 
@@ -124,7 +138,7 @@ const CheckoutForm = () => {
                 />
 
                 <div className=" flex my-5">
-                    <button className="btn btn-outline w-1/2 mx-auto" type="submit" disabled={!stripe}>
+                    <button className="btn btn-outline w-1/2 mx-auto" type="submit" disabled={!stripe || !totelPrice} >
                         Pay
                     </button>
 
