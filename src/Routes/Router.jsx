@@ -18,6 +18,7 @@ import ManageItems from "../page/Dashboard/Admin/ManageItems/ManageItems";
 import UpdateItems from "../page/Dashboard/Admin/UpdateItems/UpdateItems";
 import Payment from "../page/Dashboard/Payment/Payment";
 import PaymentHistory from "../page/Dashboard/PaymentHistory/PaymentHistory";
+import AdminHome from "../page/Dashboard/Admin/AdminHome/AdminHome";
 
 
 
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
             },
 
             // admin releted route
+            {
+                path: "admin-home",
+                element: <AdminRoute> <AdminHome></AdminHome> </AdminRoute>
+            },
             {
                 path: "all-users",
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
