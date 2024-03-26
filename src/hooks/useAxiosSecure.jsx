@@ -6,7 +6,7 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const axiosSecure = axios.create({
     baseURL: "http://localhost:5000",
-    // withCredentials: true,
+
 })
 const useAxiosSecure = () => {
     
