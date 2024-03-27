@@ -14,7 +14,7 @@ const Testimonials = () => {
 
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:5000/api/v1/reviews')
+        axios.get('https://bistro-boss-server-71.vercel.app/api/v1/reviews')
             .then(res => {
                 setReviews(res.data)
             })
