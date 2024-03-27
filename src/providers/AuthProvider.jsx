@@ -56,6 +56,7 @@ const AuthProvider = ({ children }) => {
 
                     if(res.data.token){
                         localStorage.setItem('access-token', res.data.token)
+                        setLoading(false)
                     }
                 })
                 .catch(error => console.log(error))
@@ -64,11 +65,12 @@ const AuthProvider = ({ children }) => {
             else{
                 // TODO: remove token or log out
                 localStorage.removeItem('access-token')
+                setLoading(false)
             }
 
 
 
-            setLoading(false)
+            // setLoading(false)
         })
         return () => {
             return unsubscribe();

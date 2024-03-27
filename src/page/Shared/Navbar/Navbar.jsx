@@ -3,12 +3,19 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { TiShoppingCart } from "react-icons/ti";
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
 
 const Navbar = () => {
 
-    const { user, logOut } = useContext(AuthContext);
+    const { user, logOut, loading } = useContext(AuthContext);
     const [cart] = useCart()
-    // console.log(cart)
+    const [isAdmin, isAdminLoading] = useAdmin()
+
+
+
+    if (loading && isAdminLoading) {
+        return <span className="loading loading-bars loading-lg"></span>
+    }
 
     const handelLogout = () => {
         logOut()
@@ -33,7 +40,7 @@ const Navbar = () => {
         {
             user && <li>
                 <NavLink
-                    to={"/dashboard/user-home"}
+                    to={`/dashboard/${isAdmin ? 'admin-home' : 'user-home'}`}
                     className={({ isActive, isPending }) =>
                         isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
                     }
@@ -58,14 +65,6 @@ const Navbar = () => {
                 }
             >Our Shop</NavLink>
         </li>
-        {/* <li>
-            <NavLink
-                to={"/my-cart"}
-                className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "active text-[#EEFF25] font-bold" : ""
-                }
-            >My Cart</NavLink>
-        </li> */}
         <li>
             <NavLink
                 to={"/dashboard/user-cart"}
